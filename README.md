@@ -41,7 +41,6 @@ You bring your own Gemini API key. Zero cost on the hosting side.
 | Google Chrome (or Chromium) | MV3 support required |
 | A GitHub account | The profile you want to transform |
 | A Google account | To generate a free Gemini API key |
-| Python 3.10+ | For the local FastAPI backend |
 
 ---
 
