@@ -1,0 +1,117 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  background: #ffffff;
+  color: #0f172a;
+  width: 320px;
+  min-height: 100px;
+}
+
+.popup-wrap { padding: 0; }
+
+.popup-header {
+  background: #6366f1;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-left { display: flex; align-items: center; gap: 8px; }
+.header-icon { font-size: 18px; }
+.header-title { font-size: 13px; font-weight: 600; color: white; }
+.header-sub { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 1px; }
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #94a3b8;
+}
+.status-dot.connected { background: #4ade80; }
+
+.view { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+.notice {
+  display: flex; align-items: flex-start; gap: 7px;
+  padding: 9px 10px; border-radius: 8px;
+  font-size: 11px; line-height: 1.5;
+}
+.notice.warn { background: #fef9c3; border: 0.5px solid #fde68a; color: #92400e; }
+.notice.success { background: #f0fdf4; border: 0.5px solid #86efac; color: #166534; }
+.notice-icon { flex-shrink: 0; font-size: 12px; }
+
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-label {
+  font-size: 10px; font-weight: 600; color: #64748b;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.token-input-wrap { position: relative; }
+.token-input {
+  width: 100%; padding: 8px 36px 8px 10px;
+  border: 0.5px solid #cbd5e1; border-radius: 7px;
+  font-size: 12px; font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #0f172a; background: #f8fafc;
+  outline: none; transition: border-color 0.15s;
+}
+.token-input:focus { border-color: #6366f1; background: white; }
+.eye-btn {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  color: #94a3b8; padding: 2px; display: flex; align-items: center;
+}
+.eye-btn:hover { color: #6366f1; }
+
+.field-hint { font-size: 10px; color: #94a3b8; line-height: 1.5; }
+
+.perm-row { display: flex; flex-wrap: wrap; gap: 4px; }
+.perm {
+  font-size: 9px; border-radius: 4px; padding: 2px 7px;
+  border: 0.5px solid;
+}
+.perm.green { background: #f0fdf4; border-color: #86efac; color: #166534; }
+.perm.amber { background: #fef9c3; border-color: #fde68a; color: #92400e; }
+
+.btn {
+  width: 100%; padding: 9px 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  text-decoration: none; transition: opacity 0.15s;
+  border: 0.5px solid transparent;
+}
+.btn:hover { opacity: 0.88; }
+.btn:active { transform: scale(0.98); }
+.btn.primary { background: #6366f1; color: white; border-color: #6366f1; }
+.btn.secondary { background: transparent; color: #475569; border-color: #cbd5e1; }
+.btn.danger { background: transparent; color: #dc2626; border-color: #fca5a5; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.info-card {
+  background: #f8fafc; border: 0.5px solid #e2e8f0;
+  border-radius: 8px; overflow: hidden;
+}
+.info-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 10px; border-bottom: 0.5px solid #e2e8f0;
+}
+.info-row:last-child { border: none; }
+.info-key { font-size: 11px; color: #64748b; }
+.info-val { font-size: 11px; font-weight: 500; color: #0f172a; }
+.info-val.green { color: #16a34a; }
+
+.instruction {
+  display: flex; align-items: flex-start; gap: 7px;
+  background: #eff6ff; border: 0.5px solid #bfdbfe; border-radius: 8px;
+  padding: 9px 10px; font-size: 11px; color: #1e40af; line-height: 1.5;
+}
+
+.link-row {
+  display: flex; gap: 8px;
+}
+.link-btn {
+  flex: 1; text-align: center;
+  font-size: 11px; color: var(--indigo, #6366f1);
+  text-decoration: none;
+  background: #f1f5f9; border: 0.5px solid #e2e8f0;
+  border-radius: 6px; padding: 6px 8px;
+  transition: background 0.15s;
+}
+.link-btn:hover { background: #e0e7ff; }

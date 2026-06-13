@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Pilot</title>
+  <link rel="stylesheet" href="styles/popup.css" />
+</head>
+<body>
+<div class="popup-wrap">
+
+  <div class="popup-header">
+    <div class="header-left">
+      <span class="header-icon">✨</span>
+      <div>
+        <div class="header-title">GitHub Pilot</div>
+        <div class="header-sub" id="header-sub">AI profile optimizer</div>
+      </div>
+    </div>
+    <div class="status-dot" id="status-dot"></div>
+  </div>
+
+  <!-- SETUP VIEW -->
+  <div id="view-setup" class="view">
+
+    <div class="notice warn">
+      <span class="notice-icon">⚠</span>
+      One-time setup — connect GitHub and Gemini to get started.
+    </div>
+
+    <!-- GitHub Token -->
+    <div class="field-group">
+      <label class="field-label">GitHub Personal Access Token</label>
+      <div class="token-input-wrap">
+        <input type="password" id="token-input" class="token-input"
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false"/>
+        <button class="eye-btn" id="eye-btn-token" aria-label="Toggle token visibility">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="field-hint" id="token-error" style="color:#dc2626;display:none">Invalid token. Should start with ghp_</div>
+      <div class="perm-row">
+        <span class="perm green">Contents (write)</span>
+        <span class="perm green">Profile (write)</span>
+        <span class="perm green">Topics (write)</span>
+      </div>
+    </div>
+
+    <!-- Gemini API Key -->
+    <div class="field-group">
+      <label class="field-label">Gemini API Key (free)</label>
+      <div class="token-input-wrap">
+        <input type="password" id="gemini-input" class="token-input"
+          placeholder="AIzaSy..." autocomplete="off" spellcheck="false"/>
+        <button class="eye-btn" id="eye-btn-gemini" aria-label="Toggle Gemini key visibility">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="field-hint" id="gemini-error" style="color:#dc2626;display:none">Invalid key. Should start with AIza</div>
+      <div class="field-hint">
+        Free key — 1,500 requests/day. Your key, your quota.
+      </div>
+    </div>
+
+    <button class="btn primary" id="save-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Save &amp; connect
+    </button>
+
+    <div class="link-row">
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" class="link-btn">Get GitHub token ↗</a>
+      <a href="https://aistudio.google.com/app/apikey" target="_blank" class="link-btn">Get Gemini key ↗</a>
+    </div>
+  </div>
+
+  <!-- CONNECTED VIEW -->
+  <div id="view-connected" class="view" style="display:none">
+
+    <div class="notice success">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Connected as <strong id="connected-username">@user</strong>
+    </div>
+
+    <div class="info-card">
+      <div class="info-row">
+        <span class="info-key">GitHub account</span>
+        <span class="info-val" id="info-username">—</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Gemini key</span>
+        <span class="info-val green" id="info-gemini">Saved ✓</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Last used</span>
+        <span class="info-val" id="info-last">Never</span>
+      </div>
+    </div>
+
+    <div class="instruction">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Open any GitHub profile page and click <strong>✨ Make My GitHub Professional</strong>.
+    </div>
+
+    <button class="btn secondary" id="update-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.56"/></svg>
+      Update keys
+    </button>
+
+    <button class="btn danger" id="clear-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+      Disconnect
+    </button>
+  </div>
+
+</div>
+<script src="popup.js"></script>
+</body>
+</html>

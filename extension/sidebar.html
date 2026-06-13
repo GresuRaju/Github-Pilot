@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Pilot</title>
+  <link rel="stylesheet" href="styles/sidebar.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="sb-header" id="sb-header">
+    <div class="sb-header-left">
+      <span class="sb-logo">✨</span>
+      <div>
+        <div class="sb-title">GitHub Pilot</div>
+        <div class="sb-sub" id="sb-sub">AI profile optimizer</div>
+      </div>
+    </div>
+    <div class="sb-header-right">
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg id="theme-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" id="close-btn" aria-label="Close sidebar">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- PROGRESS TRACKER -->
+  <div class="progress-bar-wrap" id="progress-wrap">
+    <div class="progress-steps">
+      <div class="p-step" data-step="1">
+        <div class="p-dot" id="dot-1">1</div>
+        <div class="p-label">Prompt</div>
+      </div>
+      <div class="p-line" id="line-1"></div>
+      <div class="p-step" data-step="2">
+        <div class="p-dot" id="dot-2">2</div>
+        <div class="p-label">Setup</div>
+      </div>
+      <div class="p-line" id="line-2"></div>
+      <div class="p-step" data-step="3">
+        <div class="p-dot" id="dot-3">3</div>
+        <div class="p-label">Audit</div>
+      </div>
+      <div class="p-line" id="line-3"></div>
+      <div class="p-step" data-step="4">
+        <div class="p-dot" id="dot-4">4</div>
+        <div class="p-label">Review</div>
+      </div>
+      <div class="p-line" id="line-4"></div>
+      <div class="p-step" data-step="5">
+        <div class="p-dot" id="dot-5">5</div>
+        <div class="p-label">Apply</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1: PROMPT -->
+  <div class="step-view" id="step-1">
+    <div class="section-label">Your goal</div>
+    <textarea
+      id="prompt-input"
+      class="prompt-textarea"
+      placeholder="Examples:&#10;• Make my profile attractive for AI/ML Engineer internships&#10;• Optimize for Backend Developer fresher roles&#10;• I'm a 2026 AIML grad, make my GitHub professional"
+      rows="4"
+    ></textarea>
+
+    <div class="section-label" style="margin-top:12px">Profile data extracted</div>
+    <div class="tag-grid" id="extraction-tags">
+      <span class="etag" id="tag-username">username</span>
+      <span class="etag" id="tag-bio">bio</span>
+      <span class="etag" id="tag-repos">repos</span>
+      <span class="etag" id="tag-languages">languages</span>
+      <span class="etag" id="tag-topics">topics</span>
+      <span class="etag" id="tag-readme">README</span>
+      <span class="etag" id="tag-stars">stars</span>
+      <span class="etag" id="tag-followers">followers</span>
+    </div>
+
+    <button class="btn primary full" id="analyze-btn" style="margin-top:14px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Analyze with Gemini
+    </button>
+  </div>
+
+  <!-- STEP 2: SETUP GUIDE (profile repo missing) -->
+  <div class="step-view" id="step-2" style="display:none">
+    <div class="warn-banner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div>
+        <div class="warn-title">Profile repository not found</div>
+        <div class="warn-sub" id="warn-repo-name">username/username doesn't exist yet</div>
+      </div>
+    </div>
+
+    <div class="setup-steps">
+      <div class="setup-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Click <strong>+</strong> → New repository</div>
+          <div class="step-desc">Top-right corner of GitHub</div>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Name it exactly your username</div>
+          <code class="step-code" id="step-username-code">your-username</code>
+          <div class="step-desc">Must match exactly — case sensitive</div>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Set <strong>Public</strong> + check <strong>Add a README file</strong></div>
+          <div class="step-desc">Both required before clicking Create</div>
+        </div>
+      </div>
+      <div class="setup-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Click Create repository</div>
+          <div class="step-note" id="step-4-note">
+            GitHub will show: "<em>username/username is a special repository — its README.md will appear on your profile.</em>" That confirms it worked.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-hint">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Done? Click below — GitHub Pilot will continue automatically.
+    </div>
+
+    <button class="btn primary full" id="repo-created-btn" style="margin-top:10px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.56"/></svg>
+      I've created it → Continue
+    </button>
+
+    <button class="btn ghost full" id="skip-setup-btn">Skip — profile repo already exists</button>
+  </div>
+
+  <!-- STEP 3: LOADING -->
+  <div class="step-view" id="step-3" style="display:none">
+    <div class="section-label">Analyzing your profile...</div>
+    <div class="load-steps" id="load-steps">
+      <div class="load-step" id="ls-extract">
+        <div class="ls-icon pending" id="ls-icon-extract"></div>
+        <div class="ls-body">
+          <div class="ls-title">Extracting profile data</div>
+          <div class="ls-sub" id="ls-sub-extract">username, bio, repos, languages</div>
+        </div>
+      </div>
+      <div class="load-step" id="ls-readme">
+        <div class="ls-icon pending" id="ls-icon-readme"></div>
+        <div class="ls-body">
+          <div class="ls-title">Reading existing README</div>
+          <div class="ls-sub" id="ls-sub-readme">Checking profile repository</div>
+        </div>
+      </div>
+      <div class="load-step" id="ls-gemini">
+        <div class="ls-icon pending" id="ls-icon-gemini"></div>
+        <div class="ls-body">
+          <div class="ls-title">Calling Gemini Flash 2.5</div>
+          <div class="ls-sub" id="ls-sub-gemini">Running recruiter audit</div>
+        </div>
+      </div>
+      <div class="load-step" id="ls-readme-gen">
+        <div class="ls-icon pending" id="ls-icon-readme-gen"></div>
+        <div class="ls-body">
+          <div class="ls-title">Generating professional README</div>
+          <div class="ls-sub" id="ls-sub-readme-gen">8 sections · animated header</div>
+        </div>
+      </div>
+      <div class="load-step" id="ls-repos">
+        <div class="ls-icon pending" id="ls-icon-repos"></div>
+        <div class="ls-body">
+          <div class="ls-title">Generating repo suggestions</div>
+          <div class="ls-sub" id="ls-sub-repos">Descriptions + topics for all repos</div>
+        </div>
+      </div>
+    </div>
+    <div class="load-progress-wrap">
+      <div class="load-progress-bar" id="load-progress-bar"></div>
+    </div>
+    <div class="load-eta" id="load-eta">Usually takes 8–12 seconds</div>
+  </div>
+
+  <!-- STEP 4: AUDIT RESULTS + README PREVIEW -->
+  <div class="step-view" id="step-4" style="display:none">
+    <div class="audit-score-row">
+      <div class="score-circle" id="score-circle">
+        <div class="score-num" id="score-num">42</div>
+        <div class="score-denom">/100</div>
+      </div>
+      <div class="score-info">
+        <div class="score-title" id="score-title">Needs improvement</div>
+        <div class="score-desc" id="score-desc">Low visibility for AI/ML roles</div>
+      </div>
+    </div>
+
+    <div class="section-label">Score breakdown</div>
+    <div class="score-bars" id="score-bars">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="section-label" style="margin-top:12px">What Gemini found</div>
+    <div class="insight-list" id="insight-list">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">README sections to include</div>
+    <div class="toggle-list" id="toggle-list">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="readme-preview-wrap">
+      <div class="readme-preview-header">
+        <span class="section-label" style="margin:0">Preview</span>
+        <button class="btn ghost small" id="copy-markdown-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy markdown
+        </button>
+      </div>
+      <div class="readme-preview" id="readme-preview">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <button class="btn primary full" id="to-review-btn" style="margin-top:12px">
+      Continue to review →
+    </button>
+  </div>
+
+  <!-- STEP 5: BEFORE/AFTER REVIEW + APPLY -->
+  <div class="step-view" id="step-5" style="display:none">
+    <div class="section-label">Review every change</div>
+    <div class="changes-list" id="changes-list">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="apply-summary" id="apply-summary">
+      <span id="approved-count">0</span> changes approved
+    </div>
+
+    <button class="btn success full" id="apply-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Apply approved changes
+    </button>
+
+    <button class="btn ghost full" id="back-btn">← Back to audit</button>
+  </div>
+
+  <!-- STEP SUCCESS -->
+  <div class="step-view" id="step-success" style="display:none">
+    <div class="success-view">
+      <div class="success-icon-wrap">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="success-title">Profile updated!</div>
+      <div class="success-sub">All approved changes applied successfully</div>
+
+      <div class="score-jump-row">
+        <div class="score-jump-box">
+          <div class="sj-num red" id="sj-before">42</div>
+          <div class="sj-label">before</div>
+        </div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <div class="score-jump-box">
+          <div class="sj-num green" id="sj-after">91</div>
+          <div class="sj-label">after</div>
+        </div>
+      </div>
+      <div class="sj-caption">Recruiter visibility score</div>
+
+      <div class="applied-summary" id="applied-summary">
+        <!-- Injected by JS -->
+      </div>
+
+      <button class="btn primary full" id="view-profile-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        View my GitHub profile
+      </button>
+      <button class="btn ghost full" id="audit-log-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View audit log
+      </button>
+    </div>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div class="step-view" id="step-error" style="display:none">
+    <div class="error-view">
+      <div class="error-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="error-title">Something went wrong</div>
+      <div class="error-msg" id="error-msg">Please try again.</div>
+      <button class="btn primary full" id="retry-btn">Try again</button>
+    </div>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
