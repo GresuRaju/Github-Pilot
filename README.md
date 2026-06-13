@@ -142,14 +142,7 @@ Store it somewhere safe (password manager) before closing the page.
 
 ## Step 3 — Install & Configure the Extension
 
-### 3.1 Clone the Repository
-
-```bash
-git clone https://github.com/<your-username>/github-pilot.git
-cd github-pilot
-```
-
-### 3.2 Load the Extension in Chrome
+### 3.1 Load the Extension in Chrome
 
 1. Open Chrome and navigate to `chrome://extensions`
 2. Enable **Developer mode** (toggle in the top-right corner)
@@ -158,17 +151,7 @@ cd github-pilot
 
 The GitHub Pilot icon will appear in your Chrome toolbar.
 
-### 3.3 Start the Local Backend
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn app:app --reload --port 8000
-```
-
-The FastAPI server runs at `http://localhost:8000`. Keep this terminal open while using the extension.
-
-### 3.4 Enter Your Keys in the Extension
+### 3.2 Enter Your Keys in the Extension
 
 1. Click the GitHub Pilot icon in the Chrome toolbar
 2. The **Setup popup** will open
@@ -287,7 +270,7 @@ github.com/<username>
   X-Gemini-Key: <user's key>                                   │
   X-GitHub-Token: <user's token>                               │
                                                                ▼
-                                              FastAPI backend (localhost:8000)
+                                              FastAPI backend 
                                                     │
                                                     ▼
                                           gemini.py → Gemini Flash 2.5
@@ -328,47 +311,8 @@ github-pilot/
 │   ├── sidebar.js
 │   ├── sidebar.css
 │   └── background.js          # Service worker, audit log storage
-│
-├── backend/
-│   ├── app.py                 # FastAPI app with CORS
-│   ├── requirements.txt
-│   └── routes/
-│       └── analyze.py         # POST /api/analyze
-│   └── services/
-│       ├── gemini.py          # Gemini Flash 2.5 caller + JSON parser
-│       └── readme_builder.py  # 30+ tech badges, README post-processor
-│   └── prompts/
-│       └── templates.py       # Audit prompt + README generation prompt
-│   └── models/
-│       └── schemas.py         # Pydantic models
-│
-└── README.md
-```
 
----
 
-## Local Backend Setup
-
-```bash
-# 1. Create a virtual environment
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-
-# 2. Install dependencies
-pip install -r backend/requirements.txt
-
-# 3. Start the server
-cd backend
-uvicorn app:app --reload --port 8000
-
-# Server is now running at:
-#   http://localhost:8000
-#   http://localhost:8000/docs  ← Swagger UI for testing
-```
-
-The backend does **not** require any environment variables — your Gemini key is sent per-request from the extension via the `X-Gemini-Key` header.
-
----
 
 ## FAQ
 
@@ -378,11 +322,8 @@ Your key is stored in `chrome.storage.sync` (browser-encrypted, tied to your Chr
 **Q: Is my GitHub token safe?**
 Same as above. The token is stored locally and used only to call the official GitHub REST API on your behalf.
 
-**Q: Do I need to keep the backend running?**
-Yes. The FastAPI backend must be running at `localhost:8000` while you use the extension. The extension communicates with it for all AI processing.
-
 **Q: Can I use a different Gemini model?**
-The backend is configured for `gemini-2.5-flash`. You can change the model string in `backend/services/gemini.py` if you have access to other models.
+The backend is configured for `gemini-2.5-flash`. 
 
 **Q: The FAB button doesn't appear on my profile — why?**
 Make sure you are on a page matching `github.com/<username>` (not a repo page). Also confirm the extension is enabled at `chrome://extensions` and that you are not browsing in Incognito mode without explicitly enabling the extension there.
